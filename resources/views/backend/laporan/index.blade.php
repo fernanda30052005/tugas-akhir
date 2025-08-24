@@ -3,7 +3,7 @@
 @section('title', 'Laporan Magang')
 
 @section('content')
-<div class="container">
+<div class="container-xxl flex-grow-1 container-p-y">
     <h3>Laporan Magang</h3>
 
     {{-- Hanya siswa yang bisa upload --}}

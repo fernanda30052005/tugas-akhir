@@ -14,7 +14,7 @@ class Logbook extends Model
         'siswa_id',
         'tanggal',
         'uraian_tugas',
-        'hasil_output',
+        'hasil',
         'dokumentasi',
     ];
 

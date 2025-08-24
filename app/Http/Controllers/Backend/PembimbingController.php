@@ -39,6 +39,9 @@ class PembimbingController extends Controller
             'password' => Hash::make($request->password),
             'role'     => 'pembimbing',
         ]);
+        
+        // Assign role pembimbing ke user
+        $user->assignRole('pembimbing');
 
         // simpan ke tabel pembimbing
         Pembimbing::create([

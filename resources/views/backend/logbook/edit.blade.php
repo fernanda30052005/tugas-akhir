@@ -13,11 +13,26 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Nama Siswa otomatis --}}
+                {{-- Siswa (hanya untuk administrator) --}}
+                @if(auth()->user()->role === 'administrator')
+                <div class="mb-3">
+                    <label for="siswa_id" class="form-label">Siswa</label>
+                    <select class="form-control" id="siswa_id" name="siswa_id" required>
+                        <option value="">-- Pilih Siswa --</option>
+                        @foreach($siswas as $siswa)
+                            <option value="{{ $siswa->id }}" {{ $logbook->siswa_id == $siswa->id ? 'selected' : '' }}>
+                                {{ $siswa->nama }} ({{ $siswa->nis }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                @else
+                {{-- Nama Siswa otomatis untuk siswa --}}
                 <div class="mb-3">
                     <label class="form-label">Nama Siswa</label>
-                    <input type="text" class="form-control" value="{{ Auth::user()->siswa->nama }}" disabled>
+                    <input type="text" class="form-control" value="{{ $logbook->siswa->nama }}" disabled>
                 </div>
+                @endif
 
                 {{-- Tanggal --}}
                 <div class="mb-3">

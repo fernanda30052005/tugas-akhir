@@ -45,6 +45,9 @@ class SiswaController extends Controller
         'password' => bcrypt($request->password),
         'role' => 'siswa',
     ]);
+    
+    // Assign role siswa ke user
+    $user->assignRole('siswa');
 
     // 2. Buat data siswa terkait user
     Siswa::create([
@@ -109,9 +112,6 @@ class SiswaController extends Controller
             'jurusan_id' => $request->jurusan_id, // ✅ update id jurusan
             'jenis_kelamin' => $request->jenis_kelamin,
             'no_hp' => $request->no_hp,
-            'password' => $request->filled('password')
-                ? Hash::make($request->password)
-                : $siswa->password,
         ]);
 
         return redirect()->route('backend.siswa.index')

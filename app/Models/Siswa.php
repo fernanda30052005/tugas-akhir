@@ -35,4 +35,19 @@ class Siswa extends Model
     {
         return $this->belongsTo(\App\Models\Pembimbing::class, 'pembimbing_id');
     }
+
+    public function logbooks()
+    {
+        return $this->hasMany(\App\Models\Logbook::class, 'siswa_id');
+    }
+
+    public function laporanMagang()
+    {
+        return $this->hasMany(\App\Models\LaporanMagang::class, 'siswa_id');
+    }
+
+    public function pengajuanMagang()
+    {
+        return $this->hasMany(\App\Models\PengajuanMagang::class, 'user_id', 'user_id');
+    }
 }

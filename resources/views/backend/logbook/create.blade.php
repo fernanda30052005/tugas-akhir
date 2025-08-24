@@ -12,6 +12,19 @@
             <form action="{{ route('backend.logbook.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- Siswa (hanya untuk administrator) --}}
+                @if(auth()->user()->role === 'administrator')
+                <div class="mb-3">
+                    <label for="siswa_id" class="form-label">Siswa</label>
+                    <select class="form-control" id="siswa_id" name="siswa_id" required>
+                        <option value="">-- Pilih Siswa --</option>
+                        @foreach($siswas as $siswa)
+                            <option value="{{ $siswa->id }}">{{ $siswa->nama }} ({{ $siswa->nis }})</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
+
                 {{-- Tanggal --}}
                 <div class="mb-3">
                     <label for="tanggal" class="form-label">Tanggal</label>

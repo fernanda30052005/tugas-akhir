@@ -14,7 +14,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Siswa</th>
+                        @if(auth()->user()->role !== 'siswa')
+                            <th>Siswa</th>
+                        @endif
                         <th>Tanggal</th>
                         <th>Uraian Tugas</th>
                         <th>Hasil</th>
@@ -26,7 +28,9 @@
                     @foreach($logbooks as $logbook)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $logbook->siswa->nama }}</td>
+                        @if(auth()->user()->role !== 'siswa')
+                            <td>{{ $logbook->siswa->nama }}</td>
+                        @endif
                         <td>{{ $logbook->tanggal }}</td>
                         <td>{!! $logbook->uraian_tugas !!}</td>
                         <td>{{ $logbook->hasil }}</td>

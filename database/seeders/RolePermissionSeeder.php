@@ -15,10 +15,15 @@ class RolePermissionSeeder extends Seeder
     {
         DB::transaction(function () {
             try {
-                Role::create(['name' => 'Administrator']);
-                Role::create(['name' => 'Member']);
+                // Create roles
+                Role::create(['name' => 'administrator']);
+                Role::create(['name' => 'siswa']);
+                Role::create(['name' => 'pembimbing']);
+                
+                $this->command->info('Roles created successfully!');
             } catch (\Throwable $th) {
                 DB::rollBack();
+                $this->command->error('Error creating roles: ' . $th->getMessage());
             }
         });
     }
