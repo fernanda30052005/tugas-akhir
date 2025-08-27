@@ -19,6 +19,7 @@
                         <th>Tahun</th>
                         <th>Kuota</th>
                         <th>Terpakai</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -26,10 +27,11 @@
                     @foreach($kuota as $item)
                         @php
                             $terpakai = \App\Models\PengajuanMagang::where('id_dudi',$item->id_dudi)->where('tahun_id',$item->tahun_id)->count();
-                            $userAlready = \App\Models\PengajuanMagang::where('user_id',auth()->id())
+                            $userApplication = \App\Models\PengajuanMagang::where('user_id',auth()->id())
                                             ->where('id_dudi',$item->id_dudi)
                                             ->where('tahun_id',$item->tahun_id)
-                                            ->exists();
+                                            ->first();
+                            $userAlready = $userApplication ? true : false;
                         @endphp
                         <tr class="text-center">
                             <td>{{ $loop->iteration }}</td>
@@ -37,6 +39,17 @@
                             <td>{{ $item->tahun->tahun_pelaksanaan }}</td>
                             <td>{{ $item->kuota }}</td>
                             <td>{{ $terpakai }}</td>
+                            <td>
+                                @if($userAlready)
+                                    @if($userApplication->status == 'Pending')
+                                        <span class="badge bg-warning">Pending</span>
+                                    @elseif($userApplication->status == 'Diterima')
+                                        <span class="badge bg-success">Diterima</span>
+                                    @elseif($userApplication->status == 'Ditolak')
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    @endif
+                                @endif
+                            </td>
                             <td>
                                 @if($userAlready)
                                     <form action="{{ route('backend.pengajuan_magang.batalkan') }}" method="POST">

@@ -17,6 +17,7 @@
                     <tr>
                         <th>No</th>
                         <th>Tahun Pelaksanaan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,10 +25,28 @@
                         <tr class="text-center">
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->tahun_pelaksanaan }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="{{ route('backend.tahun_pelaksanaan.edit', $item->id) }}" 
+                                       class="btn btn-sm btn-warning" title="Edit">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <form action="{{ route('backend.tahun_pelaksanaan.destroy', $item->id) }}" 
+                                          method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                title="Hapus" 
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus tahun pelaksanaan ini?')">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2" class="text-center text-muted">Belum ada data tahun pelaksanaan</td>
+                            <td colspan="3" class="text-center text-muted">Belum ada data tahun pelaksanaan</td>
                         </tr>
                     @endforelse
                 </tbody>

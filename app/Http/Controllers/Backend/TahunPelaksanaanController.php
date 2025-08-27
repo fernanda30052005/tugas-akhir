@@ -30,5 +30,30 @@ class TahunPelaksanaanController extends Controller
         return redirect()->route('backend.tahun_pelaksanaan.index')->with('success', 'Tahun Pelaksanaan berhasil ditambahkan.');
     }
 
-    // Tidak ada edit, update, delete
+    public function edit($id)
+    {
+        $tahun = TahunPelaksanaan::findOrFail($id);
+        return view('backend.tahun_pelaksanaan.edit', compact('tahun'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $tahun = TahunPelaksanaan::findOrFail($id);
+        
+        $request->validate([
+            'tahun_pelaksanaan' => 'required|string|unique:tahun_pelaksanaan,tahun_pelaksanaan,' . $id,
+        ]);
+
+        $tahun->update($request->all());
+
+        return redirect()->route('backend.tahun_pelaksanaan.index')->with('success', 'Tahun Pelaksanaan berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $tahun = TahunPelaksanaan::findOrFail($id);
+        $tahun->delete();
+
+        return redirect()->route('backend.tahun_pelaksanaan.index')->with('success', 'Tahun Pelaksanaan berhasil dihapus.');
+    }
 }

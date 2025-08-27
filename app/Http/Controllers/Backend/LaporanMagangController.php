@@ -21,22 +21,46 @@ class LaporanMagangController extends Controller
         return view('backend.laporan.index', compact('laporan'));
     }
 
-    public function store(Request $request)
+    public function create()
     {
         if (auth()->user()->role !== 'siswa') {
             return redirect()->back()->with('error', 'Hanya siswa yang bisa upload laporan.');
         }
-
-        $request->validate([
-            'judul_laporan' => 'required|string|max:255',
-            'file_laporan'  => 'required|mimes:pdf|max:2048',
-        ]);
 
         $siswa = auth()->user()->siswa;
 
         if (!$siswa) {
             return redirect()->back()->with('error', 'Akun ini belum terhubung dengan data siswa.');
         }
+
+        // Cek apakah siswa sudah pernah upload laporan
+        $existingLaporan = LaporanMagang::where('siswa_id', $siswa->id)->first();
+
+        return view('backend.laporan.create', compact('existingLaporan'));
+    }
+
+    public function store(Request $request)
+    {
+        if (auth()->user()->role !== 'siswa') {
+            return redirect()->back()->with('error', 'Hanya siswa yang bisa upload laporan.');
+        }
+
+        $siswa = auth()->user()->siswa;
+
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Akun ini belum terhubung dengan data siswa.');
+        }
+
+        // Cek apakah siswa sudah pernah upload laporan
+        $existingLaporan = LaporanMagang::where('siswa_id', $siswa->id)->first();
+        if ($existingLaporan) {
+            return redirect()->back()->with('error', 'Anda sudah mengupload laporan dan tidak dapat mengupload lagi.');
+        }
+
+        $request->validate([
+            'judul_laporan' => 'required|string|max:255',
+            'file_laporan'  => 'required|mimes:pdf|max:2048',
+        ]);
 
         $fileName = time() . '_' . $request->file('file_laporan')->getClientOriginalName();
         $path = $request->file('file_laporan')->storeAs('laporan', $fileName, 'public');

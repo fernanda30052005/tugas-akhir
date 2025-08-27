@@ -6,8 +6,8 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h3>Laporan Magang</h3>
 
-    {{-- Hanya siswa yang bisa upload --}}
-    @if(auth()->user()->role === 'siswa')
+    {{-- Hanya siswa yang bisa upload dan belum punya laporan --}}
+    @if(auth()->user()->role === 'siswa' && !$laporan->count())
     <div class="card mb-4">
         <div class="card-header">Upload Laporan</div>
         <div class="card-body">

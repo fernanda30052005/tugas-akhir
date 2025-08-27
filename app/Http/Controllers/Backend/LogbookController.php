@@ -59,7 +59,7 @@ class LogbookController
         $request->validate([
             'tanggal' => 'required|date',
             'uraian_tugas' => 'required|string',
-            'hasil' => 'nullable|string',
+            'hasil_output' => 'nullable|string',
             'dokumentasi' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
@@ -81,7 +81,7 @@ class LogbookController
         $logbook->siswa_id = $siswa_id;
         $logbook->tanggal = $request->tanggal;
         $logbook->uraian_tugas = $request->uraian_tugas;
-        $logbook->hasil = $request->hasil;
+        $logbook->hasil_output = $request->hasil_output;
 
         if ($request->hasFile('dokumentasi')) {
             $logbook->dokumentasi = $request->file('dokumentasi')->store('logbook', 'public');
@@ -137,7 +137,7 @@ class LogbookController
         $request->validate([
             'tanggal' => 'required|date',
             'uraian_tugas' => 'required|string',
-            'hasil' => 'nullable|string',
+            'hasil_output' => 'nullable|string',
             'dokumentasi' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
@@ -157,7 +157,7 @@ class LogbookController
 
         $logbook->tanggal = $request->tanggal;
         $logbook->uraian_tugas = $request->uraian_tugas;
-        $logbook->hasil = $request->hasil;
+        $logbook->hasil_output = $request->hasil_output;
 
         if ($request->hasFile('dokumentasi')) {
             $logbook->dokumentasi = $request->file('dokumentasi')->store('logbook', 'public');

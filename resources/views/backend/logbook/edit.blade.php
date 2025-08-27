@@ -48,8 +48,8 @@
 
                 {{-- Hasil / Output --}}
                 <div class="mb-3">
-                    <label for="hasil" class="form-label">Hasil / Output</label>
-                    <textarea id="hasil" name="hasil" class="form-control" rows="3">{{ $logbook->hasil }}</textarea>
+<label for="hasil_output" class="form-label">Hasil / Output</label>
+<textarea id="hasil_output" name="hasil_output" class="form-control" rows="3">{{ $logbook->hasil_output }}</textarea>
                 </div>
 
                 {{-- Dokumentasi File --}}

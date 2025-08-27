@@ -87,24 +87,10 @@
                 <span class="menu-header-text">Magang Management</span>
             </li>
 
-            <li class="menu-item {{ request()->is('backend/pengajuan_magang*') ? 'active' : '' }}">
-                <a href="{{ route('backend.pengajuan_magang.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-file-plus"></i>
-                    <div data-i18n="Pengajuan">Pengajuan Magang</div>
-                </a>
-            </li>
-
             <li class="menu-item {{ request()->is('backend/lihat_pengajuan*') ? 'active' : '' }}">
                 <a href="{{ route('backend.lihat_pengajuan') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-list-check"></i>
                     <div data-i18n="Lihat Pengajuan">Lihat Pengajuan Magang</div>
-                </a>
-            </li>
-
-            <li class="menu-item {{ request()->is('backend/capaian_kompetensi*') ? 'active' : '' }}">
-                <a href="{{ route('backend.capaian_kompetensi.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-target-lock"></i>
-                    <div data-i18n="Capaian">Capaian Kompetensi</div>
                 </a>
             </li>
 
